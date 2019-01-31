@@ -2,10 +2,26 @@
 
 {% block content %}
     {% include '/home/menu.html' %}
-    <div class="jumbotron" style="padding: 10px 20%">
-    <h2>comments</h2>
-</div>
-{% endblock %}
+    <div class="jumbotron col-md-9" style="padding: 10px 20%">
+        <h2>评论</h2>
+    </div>
+
+    <div class="col-md-9">
+    {% for i in range(4) %}
+        {% for comment in comments %}
+            {% for user in users %}
+            <ul> 用户：{{ user.name }} 评论：{{ comment.content }}</ul>
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+    </div>
+    {% endblock %}
+
+
+
+
+
+
 
 {% block js %}
     <script>

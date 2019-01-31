@@ -46,3 +46,12 @@ class Login(FlaskForm):
         render_kw={'id': 'user_pwd', 'class': 'form-control', 'placeholder': '请输入密码', 'required': 'reqiured'})
     submit = SubmitField(
         render_kw={'value': '登陆', 'class': 'form-control'})
+
+class Changepwd(FlaskForm):
+    pwd = PasswordField(
+        label='用户密码',
+        validators=[DataRequired(message='密码不能为空'),
+                    Length(min=3, max=15, message='用户密码长度在3到15个字符之间')],
+        render_kw={'id': 'user_pwd', 'class': 'form-control', 'placeholder': '请输入密码', 'required': 'reqiured'})
+    submit = SubmitField(
+        render_kw={'value': '登陆', 'class': 'form-control'})

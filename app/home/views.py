@@ -1,7 +1,7 @@
 from . import home
 from flask import render_template, redirect, url_for, request, session, flash
 from .forms import Register, Login
-from app.models import User
+from app.models import User, Comment
 from functools import wraps
 
 
@@ -82,7 +82,13 @@ def changepwd():
 @user_login_req
 def comment():
     users = User.query.filter_by(name=session.get('account')).all()
-    return render_template('home/comment.html', users=users)
+    for i in users:
+        user_id = i.id
+        print(i.id)
+        comments = Comment.query.filter_by(user_id=user_id).all()
+        for i in comments:
+            print(i.content)
+    return render_template('home/comment.html', users=users, comments=comments)
 
 
 @home.route('/loginlog')

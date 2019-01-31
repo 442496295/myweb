@@ -6,8 +6,9 @@
     <h2>comments</h2>
 </div>
 {% endblock %}
-{% for user in users %}
-    <ul>{{ user.comment }}</ul>
+{% for comment in comments %}
+    {{ comment }}
+    <ul>{{ com.content }}</ul>
 {% endfor %}
 
 {% block js %}
