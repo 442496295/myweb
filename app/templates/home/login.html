@@ -1,0 +1,21 @@
+{% extends "/home/index.html" %}
+
+{% block content %}
+    {% include '/home/menu.html' %}
+    <form role="form", method="post" class="col-md-6 col-md-offset-2">
+    <div class="form-group">
+        <label  for="user_name">用户账户</label>
+    <input type="text" id="user_name" name="user_name" class="form-control">
+
+    </div>
+     <div class="form-group">
+        <label for="user_pwd">用户密码</label>
+    <input type="password" id="userpwd" name="user_pwd" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="user_submit">确认表单</label>
+    <input type="submit" id="user_submit" name="user_submit" class="form-control">
+    </div>
+</form>
+{% endblock %}
