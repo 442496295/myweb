@@ -1,43 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
-</head>
-<body>
-    <form role="form", method="post" class="col-md-6 col-md-offset-2">
-    <div class="form-group">
-        <label  for="user_name">用户账户</label>
-    <input type="text" id="user_name" name="user_name" class="form-control">
+{% extends "/home/index.html" %}
 
-    </div>
-     <div class="form-group">
-        <label for="user_pwd">用户密码</label>
-    <input type="password" id="userpwd" name="user_pwd" class="form-control">
-    </div>
+{% block content %}
+    {% include '/home/menu.html' %}
+    <form method="POST"  class="col-md-3 col-md-offset-1 navbar-brand" style="color: #1b6d85">
+    <div style="color: red">{% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}</div>
+    <h2 class="col-md-offset-1">用户注册界面</h2>
 
-    <div class="form-group">
-        <label for="user_email">用户邮箱</label>
-    <input type="email" id="user_email" name="user_email" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label for="user_birthday">用户生日</label>
-    <input type="date" id="user_birthday" name="user_birthday" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label for="user_face">用户头像</label>
-    <input type="file" id="user_face" name="user_face" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label for="user_submit">确认表单</label>
-    <input type="submit" id="user_submit" name="user_submit" class="form-control">
-    </div>
-</form>
-</body>
-</html>
+    <div class="form-group has-feedback">
+        {{ form.user_name.label }}{{ form.user_name }}
+        </div>
+    <div class="form-group has-feedback">
+        {{ form.user_pwd.label }}{{ form.user_pwd }}
+        </div>
+    <div class="form-group has-feedback">
+        {{ form.user_emai.label }}{{ form.user_emai }}
+        </div>
+    <div class="form-group has-feedback">
+        {{ form.user_phone.label }}{{ form.user_phone }}
+        </div>
+    <div class="form-group has-feedback">
+        {{ form.user_face.label }}{{ form.user_face }}
+        </div>
+    <div class="form-group has-feedback">
+        {{ form.submit }}
+        </div>
+    </form>
+{% endblock %}

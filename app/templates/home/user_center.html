@@ -3,8 +3,14 @@
 {% block content %}
     {% include '/home/menu.html' %}
     <div class="jumbotron" style="padding: 10px 20%">
-    <h2>user center</h2>
-</div>
+        <h2>{{ user }}</h2>
+    {% for user in users %}
+       <ul> 用户：{{ user.name }} 电话：{{ user.phone }} 邮箱：{{ user.email }}</ul>
+
+
+    {% endfor %}
+
+    </div>
 {% endblock %}
 
 {% block js %}

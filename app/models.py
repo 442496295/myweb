@@ -1,13 +1,5 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import pymysql
-
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@127.0.0.1:3306/blog"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = SQLAlchemy(app)
+from app import db
 
 # 会员
 class User(db.Model):
@@ -17,14 +9,14 @@ class User(db.Model):
     pwd = db.Column(db.String(100))
     email = db.Column(db.String(100), unique=True)
     phone = db.Column(db.String(11), unique=True)
-    info = db.Column(db.Text)       # 个性简介
-    face = db.Column(db.String(255), unique=True)   # 头像
+    info = db.Column(db.Text, default=None)       # 个性简介
+    face = db.Column(db.String(255), unique=True, default=None)   # 头像
     addtime = db.Column(db.DATETIME, index=True, default=datetime.utcnow)
     uuid = db.Column(db.String(255), unique=True)   # 唯一标识符
     userlogs = db.relationship("Userlog", backref='user')  # 会员日志外键关联
     comments = db.relationship('Comment', backref='user')   # 评论外键关系关联
     blogcols = db.relationship('Blogcol', backref='user')  # 收藏外键关系关联
-    def __str__(self):
+    def __repr__(self):
         return "<User %r>" % self.name
 
 # 会员登陆日志
@@ -131,6 +123,10 @@ class Admin(db.Model):
     def __repr__(self):
         return "<User %r>" % self.name
 
+    def check_pwd(self, pwd):
+        from werkzeug.security import check_password_hash
+        return check_password_hash(self.pwd, pwd)
+
 # 会员登陆日志
 class Adminlog(db.Model):
     __tablename__ = 'adminlog'
@@ -159,7 +155,8 @@ class Oplog(db.Model):
 if __name__ == '__main__':
     db.create_all()
 
-    blog1 = Blog(title='flask学习', info='Flask 数据库调用教程',
-                 looknum=2131, content='以上文字皆由数据库调用而出,便于学习数据库', commentnum=222, length=84, )
-    db.session.add(blog1)
-    db.session.commit()
+
+
+
+    # print(admin.pwd)
+
