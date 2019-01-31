@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+</head>
+<body>
+<form role="form" , method="post" class="col-md-3 col-md-offset-4 navbar-brand ">
+    <div class="form-group">
+        <label for="user_name">用户账户</label>
+        <input type="text" id="user_name" name="user_name" class="form-control">
+
+    </div>
+    <div class="form-group">
+        <label for="user_pwd">用户密码</label>
+        <input type="password" id="userpwd" name="user_pwd" class="form-control">
+    </div>
+
+
+    <div class="form-group">
+        <label for="user_submit">确认表单</label>
+        <input type="submit" id="user_submit" name="user_submit" class="form-control">
+    </div>
+</form>
+</body>
+</html>
