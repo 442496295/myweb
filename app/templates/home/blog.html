@@ -61,7 +61,8 @@
 
                             <a href="single.html">
                             {% for blog in blogs %}
-                                <h1 class="entry-title"><a href="{{ url_for('home.all_blog') }}">{{ blog.title }}</a> </h1>
+{#                                <h1 class="entry-title"><a href="{{ url_for('home.all_blog') }}">{{ blog.title }}</a> </h1>#}
+                                <h1 class="entry-title"><a href="{{ url_for('home.all_blog', blog_id=blog.id) }}">{{ blog.title }}</a> </h1>
                                 <p>{{ blog.content }} --------- <a href="{{ url_for('home.del_blog') }}">删除</a></p>
                             <div class="entry-meta">
                             <span class="post-category"><a href="#">Flask 数据库调用教程</a></span>
@@ -76,7 +77,6 @@
 
 
                     </header>
-
                     {% for v in range(10) %}
                     <header class="entry-header">
                         <h1 class="entry-title">

@@ -18,9 +18,9 @@ def user_login_req(f):
 # def inherit_html():
 #     return render_template('admin/inherit_html.html')
 # @user_login_req
+
 @home.route('/')
 def index():
-    # result = B.query.all()
     return render_template('home/blog.html')
 
 
@@ -93,8 +93,6 @@ def comment():
     for i in users:
         user_id = i.id
         comments = Comment.query.filter_by(user_id=user_id).all()
-        for i in comments:
-            print(i.content)
     return render_template('home/comment.html', users=users, comments=comments)
 
 
@@ -137,20 +135,21 @@ def add_blog():
             db.session.add(blog)
             db.session.commit()
             flash('添加成功')
+    if form.error:
+        flash('发表博客失败，请重试')
     return render_template('home/add_blog.html', form=form)
 
-@home.route('/add_blog', methods=['GET', 'POST'])
-def all_blog():
-    users = User.query.filter_by(name=session.get('account')).all()
-    for i in users:
-        user_id = i.id
-        blogs = Blog.query.filter_by(user_id=user_id).all()
-        for i in blogs:
-            print(i.content)
-        return render_template('home/all_blog.html', users=users, blogs=blogs)
+@home.route('/all_blog<int:blog_id>', methods=['GET', 'POST'])
+def all_blog(blog_id):
+    blogs = Blog.query.filter_by(id=blog_id).all()
+    for blog in blogs:
+        print(blog.content)
+    return render_template('home/all_blog.html', blogs=blogs)
 
 
-@home.route('/add_blog', methods=['GET', 'POST'])
+
+
+@home.route('/add_blog/', methods=['GET', 'POST'])
 @user_login_req
 def del_blog():
     return redirect(url_for('home.blog'))
@@ -161,5 +160,37 @@ def del_blog():
 @user_login_req
 def change_blog():
     pass
+
+# @admin.route('/edit-articles/<int:id>', methods=['GET', 'POST'])
+# @login_required
+# def editArticles(id):
+#     article = Article.query.get_or_404(id)
+#     form = SubmitArticlesForm()
+#
+#     sources = [(s.id, s.name) for s in Source.query.all()]
+#     form.source.choices = sources
+#     types = [(t.id, t.name) for t in ArticleType.query.all()]
+#     form.types.choices = types
+#
+#     if form.validate_on_submit():
+#         articleType = ArticleType.query.get_or_404(int(form.types.data))
+#         article.articleType = articleType
+#         source = Source.query.get_or_404(int(form.source.data))
+#         article.source = source
+#
+#         article.title = form.title.data
+#         article.content = form.content.data
+#         article.summary = form.summary.data
+#         article.update_time = datetime.utcnow()
+#         db.session.add(article)
+#         db.session.commit()
+#         flash(u'博文更新成功！', 'success')
+#         return redirect(url_for('main.articleDetails', id=article.id))
+#     form.source.data = article.source_id
+#     form.title.data = article.title
+#     form.content.data = article.content
+#     form.types.data = article.articleType_id
+#     form.summary.data = article.summary
+#     return render_template('admin/submit_articles.html', form=form
 
 

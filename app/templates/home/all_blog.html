@@ -1,8 +1,18 @@
-{% extends index %}
+{% extends '/home/index.html' %}
 
 {% block content %}
-{% for blog in blogs %}
-        {{ blog.content }}
-{% endfor %}
+
+<div class="jumbotron" style="font-size: 40px">
+       {% for blog in blogs %}
+           <ul>作者id：{{ blog.user_id }}</ul>
+           <ul>博客标题：{{ blog.title }}</ul>
+           <ul>简介：{{ blog.info }}</ul>
+           <ul>正文：{{ blog.content }}</ul>
+
+       {% endfor %}
+</div>
+
+
+
 
 {% endblock %}
