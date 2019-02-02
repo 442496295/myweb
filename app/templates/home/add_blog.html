@@ -1,0 +1,42 @@
+{% extends '/home/index.html' %}
+
+{% block content %}
+    <h2 class="col-md-offset-5">添加博客</h2>
+    <form method="POST"  >
+    <div style="color: red">{% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
+    {% for e in form.title.errors %}
+          <p class="help-block">{{ e }}</p>
+    {% endfor %}
+    </div>
+    <div class="form-group has-feedback">
+        {{ form.title.label }}{{ form.title }}
+    </div>
+        {% for e in form.info.errors %}
+          <p class="help-block">{{ e }}</p>
+    {% endfor %}
+    <div class="form-group has-feedback">
+        {{ form.info.label }}{{ form.info }}
+    </div>
+        {% for e in form.text.errors %}
+          <p class="help-block">{{ e }}</p>
+    {% endfor %}
+    <div class="form-group has-feedback">
+        {{ form.text.label }}{{ form.text }}
+    </div>
+    <div class="form-group has-feedback">
+        {{ form.submit }}
+    </div>
+    </form>
+
+
+{% endblock %}
+{% block js %}
+{#<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>#}
+{#<script>#}
+{#    CKEDITOR.replace('editor');#}
+{#</script>#}
+{% endblock %}
+
+

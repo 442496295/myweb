@@ -15,6 +15,7 @@ class User(db.Model):
     uuid = db.Column(db.String(255), unique=True)   # 唯一标识符
     userlogs = db.relationship("Userlog", backref='user')  # 会员日志外键关联
     comments = db.relationship('Comment', backref='user')   # 评论外键关系关联
+    blogs = db.relationship('Blog', backref='user')       # 博客外键关系关联
     blogcols = db.relationship('Blogcol', backref='user')  # 收藏外键关系关联
     def __repr__(self):
         return "<User %r>" % self.name
@@ -47,14 +48,14 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), unique=True)
     info = db.Column(db.Text)   # 简介
-    looknum = db.Column(db.BigInteger)
+    looknum = db.Column(db.BigInteger, default=0)
     content = db.Column(db.Text)
-    commentnum = db.Column(db.BigInteger)
+    commentnum = db.Column(db.BigInteger, default=0)
     tag_id = db.Column(db.Integer, db.ForeignKey('tag.id'))
-    length = db.Column(db.String(100))
     addtime = db.Column(db.DATETIME, index=True, default=datetime.utcnow)   # 添加时间
     comments = db.relationship('Comment', backref='blog')
     blogcols = db.relationship('Blogcol', backref='blog')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属用户
 
     def __repr__(self):
         return "<Movie %r>" % self.title
@@ -143,7 +144,7 @@ class Adminlog(db.Model):
 class Oplog(db.Model):
     __tablename__ = 'oplog'
     id = db.Column(db.Integer, primary_key=True)
-    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id')) # 所属会员
+    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))     # 所属会员
     ip = db.Column(db.String(100))      # 登陆ip
     reason = db.Column(db.String(600))      # 操作原因
     addtion = db.Column(db.DATETIME, index=True, default=datetime.utcnow)   # 登陆时间
